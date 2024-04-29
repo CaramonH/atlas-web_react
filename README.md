@@ -80,3 +80,6 @@ Set up a development server and divide the code into modules. Details can be fou
 - `task_2`: Adding CSS & Images task
 - `task_3`: Dev Servers, Modules, and Tree Shaking task
 
+## Contributor:
+
+- **Caramon Hofstetter** - [CaramonH](https://github.com/CaramonH) [LinkedIn](https://www.linkedin.com/in/caramonhofstetter/)
