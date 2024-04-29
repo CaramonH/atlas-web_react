@@ -1,13 +1,6 @@
 import $ from 'jquery';
 
-const paragraphs = [
-  'Holberton Dashboard',
-  'Dashboard data for the students',
-  'Copyright - Holberton School'
-];
-
-$(document).ready(() => {
-  paragraphs.forEach(text => {
-    $('body').append(`<p>${text}</p>`);
-  });
-});
+// Add three paragraphs to the page body
+$('body').append('<p>Holberton Dashboard</p>');
+$('body').append('<p>Dashboard data for the students</p>');
+$('body').append('<p>Copyright - Holberton School</p>');
