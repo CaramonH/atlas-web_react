@@ -1,0 +1,27 @@
+{
+  "name": "atlas-web_react-1",
+  "version": "1.0.0",
+  "description": "T5 React Project for Atlas School",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaramonH/atlas-web_react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CaramonH/atlas-web_react/issues"
+  },
+  "homepage": "https://github.com/CaramonH/atlas-web_react#readme",
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}
