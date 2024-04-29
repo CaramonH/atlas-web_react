@@ -1,27 +1,22 @@
 import $ from 'jquery';
 import _ from 'lodash';
+import '../css/main.css';
 
-// Function to update the counter
-const updateCounter = _.debounce(() => {
-    let count = parseInt($('#count').text()) || 0;
-    count++;
-    $('#count').text(`${count} clicks on the button`);
-}, 500);
+// Create new elements and append to body
+$('body').append('<div id="logo"><div>');
+$('body').append('<p>Holberton Dashboard</p>');
+$('body').append('<p>Dashboard data for the students</p>');
+$('body').append('<button>Click here to get started</button>');
+$('body').append('<p id="count"></p>');
+$('body').append('<p>Copyright - Holberton School</p>');
 
-$(document).ready(() => {
-    // Add paragraphs to the body
-    $('body').append('<p>Holberton Dashboard</p>');
-    $('body').append('<p>Dashboard data for the students</p>');
+let count = 0;
 
-    // Add a button to the body
-    $('body').append('<button id="clickButton">Click here to get started</button>');
+// Function to update count and modify text content
+function updateCounter() {
+  count++;
+  $('#count').text(`${count} clicks on the button`);
+}
 
-    // Add a paragraph for the count
-    $('body').append('<p id="count"></p>');
-
-    // Add a paragraph for the copyright
-    $('body').append('<p>Copyright - Holberton School</p>');
-
-    // Bind the updateCounter function to the click event of the button
-    $('#clickButton').click(updateCounter);
-});
+// Select button and bind click event w/ debounced updateCounter to prevent spammy behavior
+$('button').on('click', _.debounce(updateCounter, 500));
