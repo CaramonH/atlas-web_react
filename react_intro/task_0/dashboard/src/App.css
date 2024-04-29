@@ -2,37 +2,58 @@
   text-align: center;
 }
 
+/* #region HEADER */
+
 .App-logo {
-  height: 40vmin;
+  height: 12rem;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-header {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.App-header h1 {
+  font-size: 3.5rem;
+  color: #00003C;
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 800;
 }
+
+/* #endregion */
+
+/* #region BODY */
 
 .App-body {
-  padding: 20px;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 100vh;
+  border-top: 5px solid #00003C;
+  border-bottom: 5px solid #00003C;
 }
 
-.App-footer {
-  background-color: #282c34;
-  color: white;
-  padding: 10px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+.App-body p {
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin: 4rem 2rem 1rem 4rem;
 }
+
+/* #endregion */
+
+/* #region FOOTER */
+
+.App-footer p {
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+/* #endregion */
