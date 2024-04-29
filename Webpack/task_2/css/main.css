@@ -1,0 +1,22 @@
+/* main.css */
+
+/* Position the counter text to the right of the button and make it bold */
+#count {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+/* Position the counter text to the right of the button */
+#count::before {
+    content: '';
+    flex: 1;
+}
+
+/* Set the background image for the logo */
+#logo {
+    width: 200px;
+    height: 200px;
+    background-image: url('../assets/holberton-logo.jpg');
+    background-size: cover;
+}
