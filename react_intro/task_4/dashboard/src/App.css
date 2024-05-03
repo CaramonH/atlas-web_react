@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 12rem;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.App-header h1 {
+  font-size: 3.5rem;
+  color: #00003C;
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 800;
+}
+
+.App-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 100vh;
+  border-top: 5px solid #00003C;
+  border-bottom: 5px solid #00003C;
+}
+
+.App-body p {
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin: 4rem 2rem 1rem 4rem;
+}
+
+.App-footer p {
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  font-style: italic;
+}
