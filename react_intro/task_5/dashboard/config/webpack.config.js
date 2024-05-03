@@ -22,6 +22,9 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader', // Use babel for transpiling
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'], // Add babel presets
+          },
         },
       },
       {
@@ -33,12 +36,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i, // Match image files
-        use: [
-          'file-loader',
-          {
-            loader: 'image-webpack-loader',
-          },
-        ],
+        type: 'asset/resource', // Use asset modules to handle images
       },
     ],
   },
