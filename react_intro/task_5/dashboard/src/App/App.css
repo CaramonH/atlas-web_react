@@ -39,6 +39,43 @@
   margin: 4rem 2rem 1rem 4rem;
 }
 
+
+.App-body form {
+  display: flex;
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin: 1rem 2rem 1rem 4rem;
+}
+
+.App-body label {
+  padding-right: .5rem;
+}
+
+.App-body #email,
+#password {
+  margin-right: 1rem;
+  border: 1px solid #00003C;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+}
+
+.App-body button {
+  background-color: #1ED2AF;
+  border: 1px solid #00003C;
+  border-radius: 8px;
+  padding: .4rem;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.App-body input:focus {
+  border-color: #1ED2AF !important;
+  outline: 2px solid #1ED2AF;
+}
+
 .App-footer p {
   font-family: 'Galano Grotesque Alt', sans-serif;
   font-weight: 400;

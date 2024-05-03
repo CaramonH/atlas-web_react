@@ -7,6 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'), // Output directory
   },
   devServer: {
+    port: 8000,
     static: {
       directory: path.join(__dirname, '../dist'), // Serve static files from the dist directory
     },

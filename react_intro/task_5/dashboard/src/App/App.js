@@ -1,6 +1,7 @@
-import logo from './atlas_logo.png';
+import React from "react";
+import logo from '../assets/atlas_logo.png';
 import './App.css';
-import { getFullYear, getFooterCopy } from './utils';
+import { getFullYear, getFooterCopy } from '../utils/utils';
 
 function App() {
   return (
