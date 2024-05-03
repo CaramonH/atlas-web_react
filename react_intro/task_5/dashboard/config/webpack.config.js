@@ -37,7 +37,12 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i, // Match image files
-        type: 'asset/resource', // Use asset modules to handle images
+        use: [
+          'file-loader', // Use file-loader to emit the image file
+          {
+            loader: 'image-webpack-loader', // Use image-webpack-loader for images
+          },
+        ],
       },
     ],
   },
