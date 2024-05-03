@@ -1,0 +1,9 @@
+.Notifications {
+  border: 5px dotted #00003C;
+  padding: 1.5rem;
+}
+
+.Notifications p {
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 400;
+}
