@@ -6,7 +6,7 @@ describe('Notifications component', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<Notifications />);
+    wrapper = shallow(<Notifications />, { context: {} });
   });
 
   test('renders without crashing', () => {
@@ -14,10 +14,10 @@ describe('Notifications component', () => {
   });
 
   test('renders three list items', () => {
-    expect(wrapper.find('li').length).toBe(3);
+    expect(wrapper.find('ul').children()).toHaveLength(3);
   });
 
   test('renders the text "Here is the list of notifications"', () => {
-    expect(wrapper.text()).toContain('Here is the list of notifications');
+    expect(wrapper.find('p').text()).toBe('Here is the list of notifications');
   });
 });
