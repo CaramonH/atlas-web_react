@@ -19,7 +19,8 @@ describe('App', () => {
   });
 
   it('contains the Notifications component', () => {
-    expect(wrapper.contains(<Notifications />)).toBe(true);
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(Notifications).exists()).toBe(true);
   });
 
   it('contains the Header component', () => {
