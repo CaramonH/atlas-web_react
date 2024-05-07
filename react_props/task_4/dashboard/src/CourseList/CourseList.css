@@ -1,0 +1,43 @@
+#CourseList {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 1rem auto;
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 400;
+}
+
+#CourseList {
+  border: 1px solid #e0e0e0;
+}
+
+#CourseList thead th[colspan="2"] {
+  text-align: center; 
+}
+
+/* Styling for the second row of headers */
+#CourseList thead tr:nth-child(2) th {
+  border-top: 2px solid #e0e0e0; /* Top border for the second header row */
+  border-bottom: 2px solid #e0e0e0; /* Bottom border for the second header row */
+}
+
+/* Styling for the first header cell in the second row */
+#CourseList thead tr:nth-child(2) th:first-child {
+  text-align: left;
+  width: 70%;
+}
+
+/* Styling for the second header cell in the second row */
+#CourseList thead tr:nth-child(2) th:last-child {
+  text-align: left;
+  width: 30%;
+}
+
+/* Styling for the table body cells */
+#CourseList tbody tr td {
+  text-align: left;
+}
+
+/* Styling for the last cell in each row of the table body */
+#CourseList tbody tr td:last-child {
+  text-align: left;
+}
