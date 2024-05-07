@@ -3,4 +3,12 @@
   font-weight: 400;
   font-size: 1.1rem;
   font-style: italic;
+  border-top: 5px solid #00003C;
+  padding: 1rem 0;
+}
+
+.Footer-main {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
