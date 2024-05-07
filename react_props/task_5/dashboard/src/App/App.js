@@ -21,7 +21,6 @@ function App({ isLoggedIn }) {
     { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
   ]
 
-
   return (
     <>
       <div className="App-header-wrapper">

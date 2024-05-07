@@ -1,11 +1,12 @@
 import React from "react";
 import './Notifications.css';
 import NotificationItem from "./NotificationItem";
+import { NotificationItemShape } from "./NotificationItemShape";
 import closeIcon from '../assets/close.png';
-import { getLatestNotification } from "../utils/utils";
+// import { getLatestNotification } from "../utils/utils";
 import PropTypes from 'prop-types';
 
-export function Notifications({ displayDrawer }) {
+export function Notifications({ displayDrawer, listNotifications }) {
 
   const buttonStyle = {
     border: 'none',
@@ -15,8 +16,8 @@ export function Notifications({ displayDrawer }) {
   };
 
   const iconStyle = {
-    width: '1rem',
-    height: '1rem',
+    width: '.8rem',
+    height: '.8rem',
     margin: '0.5rem'
   };
 
@@ -32,13 +33,24 @@ export function Notifications({ displayDrawer }) {
       {displayDrawer && (
         <div className="Notifications">
           <div className="Notifications-content">
-            <p>
-              Here is the list of notifications
-            </p>
+            {listNotifications.length > 0 && (
+              <p>
+                Here is the list of notifications
+              </p>
+            )}
             <ul>
-              <NotificationItem type="default" value="New course available" />
-              <NotificationItem type="urgent" value="New resume available" />
-              <NotificationItem type="urgent" html={{ __html: getLatestNotification() }} />
+              {listNotifications.length === 0 ? (
+                <NotificationItem value='No new notification for now' />
+              ) : (
+                listNotifications.map(notification => (
+                  <NotificationItem
+                    key={notification.id}
+                    type={notification.type}
+                    value={notification.value}
+                    html={notification.html}
+                  />
+                ))
+              )}
             </ul>
           </div>
           <button
@@ -55,10 +67,12 @@ export function Notifications({ displayDrawer }) {
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
+  listNotifications: PropTypes.arrayOf(NotificationItemShape),
 };
 
 Notifications.defaultProps = {
   displayDrawer: false,
+  listNotifications: [],
 };
 
 export default Notifications;
