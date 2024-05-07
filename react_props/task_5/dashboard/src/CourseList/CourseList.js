@@ -1,6 +1,8 @@
 import React from 'react';
 import CourseListRow from './CourseListRow';
 import './CourseList.css';
+import { CourseShape } from './CourseShape';
+import PropTypes from 'prop-types';
 
 function CourseList() {
   return (
@@ -17,5 +19,13 @@ function CourseList() {
     </table>
   );
 }
+
+CourseList.propTypes = {
+  listCourses: PropTypes.arrayOf(CourseShape),
+};
+
+CourseList.defaultProps = {
+  listCourses: [],
+};
 
 export default CourseList;
