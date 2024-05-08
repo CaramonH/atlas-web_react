@@ -3,13 +3,16 @@ import './Notifications.css';
 import NotificationItem from "./NotificationItem";
 import { NotificationItemShape } from "./NotificationItemShape";
 import closeIcon from '../assets/close.png';
-// import { getLatestNotification } from "../utils/utils";
 import PropTypes from 'prop-types';
 
 class Notifications extends Component {
 
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.listNotifications.length > this.props.listNotifications.length;
   }
 
   render() {

@@ -57,4 +57,22 @@ describe('Notifications', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Notification 1 has been marked as read');
     consoleSpy.mockRestore();
   });
+
+  it('does not rerender with the same listNotifications prop', () => {
+    const listNotifications = [{ id: 1, type: 'default', value: 'New course available' }];
+    const wrapper = shallow(<Notifications listNotifications={listNotifications} />);
+    const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications });
+    expect(shouldUpdate).toBe(false);
+  });
+
+  it('rerenders with a longer listNotifications prop', () => {
+    const listNotifications = [{ id: 1, type: 'default', value: 'New course available' }];
+    const longerListNotifications = [
+      ...listNotifications,
+      { id: 2, type: 'urgent', value: 'New resume available' }
+    ];
+    const wrapper = shallow(<Notifications listNotifications={listNotifications} />);
+    const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: longerListNotifications });
+    expect(shouldUpdate).toBe(true);
+  });
 })
