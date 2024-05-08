@@ -1,0 +1,22 @@
+.App {
+  text-align: center;
+}
+
+.App-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 5px solid #00003C;
+}
+
+.App-menu-notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.App-menu-notifications .menuItem p {
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
