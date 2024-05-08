@@ -5,6 +5,8 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import CourseList from "../CourseList/CourseList";
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import BodySection from "../BodySection/BodySection";
 import PropTypes from 'prop-types';
 
 class App extends Component {
@@ -53,7 +55,18 @@ class App extends Component {
           </div>
         </div>
         <div className="App">
-          {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
+          {isLoggedIn ? (
+            <BodySectionWithMarginBottom title='Course List'>
+              <CourseList listCourses={listCourses} />
+            </BodySectionWithMarginBottom>
+            ) : (
+            <BodySectionWithMarginBottom title='Log in to continue'>
+              <Login />
+            </BodySectionWithMarginBottom>
+          )}
+          <BodySection title='News from the School'>
+            <p>Caramon is number one!!</p>
+          </BodySection>
           <Footer />
         </div>
       </>
