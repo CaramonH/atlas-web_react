@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 
-function NotificationItem({ type, html, value }) {
-  // If html is provided, render a div with dangerouslySetInnerHTML,
-  // otherwise, render a span with the text value
-  const listItemContent = html ? (
-    <li data-notification-type={type} dangerouslySetInnerHTML={html}></li>
-  ) : (
-    <li data-notification-type={type}>{value}</li>
-  );
+class NotificationItem extends Component {
 
-  return listItemContent;
+  render() {
+    const { id, type, html, value, markAsRead } = this.props;
+
+    return html ? (
+      <li data-notification-type={type} dangerouslySetInnerHTML={html} onClick={() => markAsRead(id)}></li>
+    ) : (
+      <li data-notification-type={type} onClick={() => markAsRead(id)}>{value}</li>
+    );
+  }
 }
 
 NotificationItem.propTypes = {
@@ -20,10 +21,12 @@ NotificationItem.propTypes = {
   }),
   type: PropTypes.string,
   value: PropTypes.string,
+  markAsRead: PropTypes.func,
 };
 
 NotificationItem.defaultProps = {
   type: 'default',
+  markAsRead: () => {},
 };
 
 export default NotificationItem;
