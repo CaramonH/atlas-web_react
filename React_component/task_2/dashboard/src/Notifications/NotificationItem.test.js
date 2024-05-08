@@ -20,4 +20,11 @@ describe('NotificationItem', () => {
     const wrapper = shallow(<NotificationItem html={html} />);
     expect(wrapper.html()).toContain('<u>test</u>');
   });
+
+    it('calls markAsRead with the right id when clicked', () => {
+    const markAsReadSpy = jest.fn();
+    const wrapper = shallow(<NotificationItem id={1} markAsRead={markAsReadSpy} />);
+    wrapper.simulate('click');
+    expect(markAsReadSpy).toHaveBeenCalledWith(1);
+  });
 })
