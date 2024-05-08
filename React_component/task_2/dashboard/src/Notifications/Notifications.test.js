@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 
@@ -48,5 +48,13 @@ describe('Notifications', () => {
   it('displays div.Notifications when displayDrawer is true', () => {
     const wrapper = shallow(<Notifications displayDrawer={true} />);
     expect(wrapper.find('.Notifications').length).toBe(1);
+  });
+
+  it('calls markAsRead with the right message when a NotificationItem is clicked', () => {
+    const consoleSpy = jest.spyOn(console, 'log');
+    const wrapper = mount(<Notifications displayDrawer={true} listNotifications={[{ id: 1, type: 'default', value: 'New course available' }]} />);
+    wrapper.find('NotificationItem').first().simulate('click');
+    expect(consoleSpy).toHaveBeenCalledWith('Notification 1 has been marked as read');
+    consoleSpy.mockRestore();
   });
 })
