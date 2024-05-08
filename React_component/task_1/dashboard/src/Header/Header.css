@@ -1,0 +1,19 @@
+.Header-logo {
+  height: 12rem;
+  pointer-events: none;
+}
+
+.Header-main {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Header-main h1 {
+  font-size: 3.5rem;
+  color: #00003C;
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  font-weight: 800;
+}
