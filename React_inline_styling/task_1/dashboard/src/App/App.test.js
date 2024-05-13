@@ -6,8 +6,17 @@ import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import CourseList from '../CourseList/CourseList';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 describe('App', () => {
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders without crashing', () => {
     shallow(<App />);
   });
@@ -29,7 +38,7 @@ describe('App', () => {
 
   it('contains the Footer component', () => {
     const wrapper = shallow(<App />);
-    expect(wrapper.contains(<Footer />)).toBe(true);
+    expect(wrapper.find(Footer).exists()).toBe(true);
   });
 
   it('does not render CourseList when isLoggedIn is false', () => {
@@ -57,7 +66,7 @@ describe('App', () => {
     const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
 
     const wrapper = mount(<App logOut={logOutMock} />);
-    
+
     const event = new KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
     window.dispatchEvent(event);
 
