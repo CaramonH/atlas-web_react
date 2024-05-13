@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import './Notifications.css';
 import NotificationItem from "./NotificationItem";
 import { NotificationItemShape } from "./NotificationItemShape";
 import closeIcon from '../assets/close.png';
 import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 
 class Notifications extends Component {
 
@@ -32,20 +32,49 @@ class Notifications extends Component {
       console.log("close button has been clicked");
     };
 
+    const styles = StyleSheet.create({
+      notifications: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        border: '3px dotted #00003C',
+        marginRight: '.5rem',
+      },
+
+      notificationsParagraph: {
+        fontFamily: "'Galano Grotesque Alt', sans-serif",
+        fontWeight: '400',
+        padding: '1.5rem 0 .3rem .8rem',
+        margin: '0',
+        fontSize: '.8rem',
+      },
+
+      menuItem: {
+        fontFamily: "'Galano Grotesque Alt', sans-serif",
+        fontWeight: '400',
+        fontSize: '0.8rem',
+        marginRight: '1rem',
+      },
+
+      notificationsUnorderedList: {
+        paddingLeft: '2.3rem',
+      },
+    })
+
     return (
       <>
-        <div className="menuItem">
+        <div className={css(styles.menuItem)} data-testid="menuItem">
           <p>Your Notifications</p>
         </div>
         {displayDrawer && (
-          <div className="Notifications">
+          <div className={css(styles.notifications)} data-testid="notifications">
             <div className="Notifications-content">
               {listNotifications.length > 0 && (
-                <p>
+                <p className={css(styles.notificationsParagraph)}>
                   Here is the list of notifications
                 </p>
               )}
-              <ul>
+              <ul className={css(styles.notificationsUnorderedList)}>
                 {listNotifications.length === 0 ? (
                   <NotificationItem value='No new notification for now' />
                 ) : (
