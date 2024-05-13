@@ -1,15 +1,3 @@
-#CourseList {
-  width: 90%;
-  border-collapse: collapse;
-  margin: 1rem auto;
-  font-family: 'Galano Grotesque Alt', sans-serif;
-  font-weight: 400;
-}
-
-#CourseList {
-  border: 1px solid #e0e0e0;
-}
-
 #CourseList thead th[colspan="2"] {
   text-align: center; 
 }
