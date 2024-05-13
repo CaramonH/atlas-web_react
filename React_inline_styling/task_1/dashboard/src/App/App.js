@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './Global.css';
 import Notifications from "../Notifications/Notifications";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
