@@ -16,7 +16,7 @@ describe('<BodySectionWithMarginBottom />', () => {
   it('correctly renders a BodySection component and passes props', () => {
     const wrapper = shallow(
       <BodySectionWithMarginBottom title="test title">
-        <p>test</p>
+        <p>test children node</p>
       </BodySectionWithMarginBottom>
     );
     const bodySection = wrapper.find(BodySection);
