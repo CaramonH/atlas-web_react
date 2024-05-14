@@ -10,6 +10,57 @@ import BodySection from "../BodySection/BodySection";
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
+const styles = StyleSheet.create({
+
+  body: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    borderBottom: '5px solid #00003C',
+    '@media (max-width: 900px)': {
+      flexDirection: 'column-reverse',
+    },
+  },
+
+  headerNotifications: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    '@media (max-width: 900px)': {
+      width: '100%',
+      alignItems: 'flex-end',
+    },
+  },
+
+  newsMarginLeft: {
+    marginLeft: '4rem',
+  },
+
+  newsMargin: {
+    marginLeft: '40px',
+  },
+
+  footer: {
+    fontFamily: "'Galano Grotesque Alt', sans-serif",
+    fontStyle: 'italic',
+    fontSize: '1.1rem',
+    borderTop: '5px solid #00003C',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: '0',
+  }
+})
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -47,39 +98,6 @@ class App extends Component {
     const { isLoggedIn } = this.props;
     const { listCourses, listNotifications } = this.state;
 
-    const styles = StyleSheet.create({
-      body: {
-        textAlign: 'center',
-      },
-
-      headerWrapper: {
-        display: 'flex',
-        justifyContent:'space-between',
-        alignItems: 'flex-start',
-        borderBottom: '5px solid #00003C',
-      },
-
-      headerNotifications: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-      },
-
-      footer: {
-        fontFamily: "'Galano Grotesque Alt', sans-serif",
-        fontStyle: 'italic',
-        fontSize: '1.1rem',
-        borderTop: '5px solid #00003C',
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        bottom: '0',
-      },
-    });
-
-
     return (
       <>
         <div className={css(styles.headerWrapper)}>
@@ -98,9 +116,11 @@ class App extends Component {
               <Login />
             </BodySectionWithMarginBottom>
           )}
-          <BodySection title='News from the School'>
-            <p>Caramon is number one!!</p>
-          </BodySection>
+          <div className={css(styles.newsMargin)}>
+            <BodySection title='News from the School'>
+              <p className={css(styles.newsMarginLeft)}>Foster got hired!!</p>
+            </BodySection>
+          </div>
         </div>
         <div>
           <Footer footerClassName={css(styles.footer)} />
