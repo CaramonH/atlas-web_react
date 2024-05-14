@@ -1,15 +1,23 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import BodySection from './BodySection';
+import { StyleSheetTestUtils } from 'aphrodite';
 
-describe('<BodySection />', () => {
-  it('renders an h2 and p element with correct text', () => {
+describe('BodySection Component', () => {
+  beforeAll(() => StyleSheetTestUtils.suppressStyleInjection());
+  afterAll(() => StyleSheetTestUtils.clearBufferAndResumeStyleInjection());
+
+  it('renders a heading and paragraph with correct text', () => {
     const wrapper = shallow(
-      <BodySection title="test title">
-        <p>test children node</p>
+      <BodySection title="Test Title">
+        <p>Test Children Node</p>
       </BodySection>
     );
-    expect(wrapper.find('h2').text()).toBe('test title');
-    expect(wrapper.find('p').text()).toBe('test children node');
+
+    const headingText = wrapper.find('h2').text();
+    const paragraphText = wrapper.find('p').text();
+
+    expect(headingText).toBe('Test Title');
+    expect(paragraphText).toBe('Test Children Node');
   });
 });
