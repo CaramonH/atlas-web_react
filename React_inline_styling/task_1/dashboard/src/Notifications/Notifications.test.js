@@ -2,8 +2,17 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 describe('Notifications', () => {
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders without crashing', () => {
     shallow(<Notifications />);
   });
@@ -32,22 +41,22 @@ describe('Notifications', () => {
 
   it('displays the menu item when displayDrawer is false', () => {
     const wrapper = shallow(<Notifications displayDrawer={false} />);
-    expect(wrapper.find('.menuItem').length).toBe(1);
+    expect(wrapper.find('[data-testid="menuItem"]').length).toBe(1);
   });
 
   it('does not display div.Notifications when displayDrawer is false', () => {
     const wrapper = shallow(<Notifications displayDrawer={false} />);
-    expect(wrapper.find('.Notifications').length).toBe(0);
+    expect(wrapper.find('[data-testid="notifications"]').length).toBe(0);
   });
 
   it('displays the menu item when displayDrawer is true', () => {
     const wrapper = shallow(<Notifications displayDrawer={true} />);
-    expect(wrapper.find('.menuItem').length).toBe(1);
+    expect(wrapper.find('[data-testid="menuItem"]').length).toBe(1);
   });
 
   it('displays div.Notifications when displayDrawer is true', () => {
     const wrapper = shallow(<Notifications displayDrawer={true} />);
-    expect(wrapper.find('.Notifications').length).toBe(1);
+    expect(wrapper.find('[data-testid="notifications"]').length).toBe(1);
   });
 
   it('calls markAsRead with the right message when a NotificationItem is clicked', () => {
