@@ -1,8 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import NotificationItem from './NotificationItem';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 describe('NotificationItem', () => {
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders without crashing', () => {
     shallow(<NotificationItem />);
   });
@@ -21,7 +30,7 @@ describe('NotificationItem', () => {
     expect(wrapper.html()).toContain('<u>test</u>');
   });
 
-    it('calls markAsRead with the right id when clicked', () => {
+  it('calls markAsRead with the right id when clicked', () => {
     const markAsReadSpy = jest.fn();
     const wrapper = shallow(<NotificationItem id={1} markAsRead={markAsReadSpy} />);
     wrapper.simulate('click');
