@@ -3,24 +3,38 @@ import NotificationItem from "./NotificationItem";
 import { NotificationItemShape } from "./NotificationItemShape";
 import closeIcon from '../assets/close.png';
 import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css, } from 'aphrodite';
+
+const fadeIn = {
+  'from': { opacity: 0.5 },
+  'to': { opacity: 1 },
+};
+
+const bounce = {
+  '0%': { tranform: 'translateY(0)' },
+  '50%': { transform: 'translateY(-5px)' },
+  '100%': { tranform: 'translateY(5px)' },
+};
 
 const styles = StyleSheet.create({
 
   notifications: {
-    display: 'flex',
+    display: 'relative',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     border: '3px dotted #00003C',
     marginRight: '.5rem',
+    marginTop: '1rem',
     '@media (max-width: 900px)': {
+      position: 'fixed',
       width: '100vw',
       height: '100vh',
+      backgroundColor: 'white',
       padding: 0,
       margin: 0,
       overflowY: 'auto',
       border: 'none',
-      zIndex: 10,
+      zIndex: 2,
     },
   },
 
@@ -41,12 +55,20 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: '0.8rem',
     marginRight: '1rem',
+    // backgroundColor: '#fff8f8',
+    cursor: 'pointer',
+    position: 'absolute',
+    right: '0',
+    ':hover': {
+      animationName: [fadeIn, bounce],
+      animationDuration: '1s, 0.5s',
+      animationIterationCount: '1, 3',
+      animationTimingFunction: 'ease-in-out',
+    },
   },
 
   noMenuItem: {
-    '@media (max-width: 900px)': {
-      display: 'none',
-    },
+    display: 'none',
   },
 
   notificationsUnorderedList: {
@@ -57,6 +79,17 @@ const styles = StyleSheet.create({
       margin: 0,
       width: '100%',
     }
+  },
+
+  closeButton: {
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    background: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    outline: 'none',
+    zIndex: 3,
   },
 })
 
@@ -72,12 +105,6 @@ class Notifications extends Component {
 
   render() {
     const { displayDrawer, listNotifications } = this.props;
-    const buttonStyle = {
-      border: 'none',
-      background: 'transparent',
-      cursor: 'pointer',
-      padding: '0'
-    };
     const iconStyle = {
       width: '.8rem',
       height: '.8rem',
@@ -120,7 +147,7 @@ class Notifications extends Component {
             </div>
             <button
               aria-label="Close"
-              style={buttonStyle}
+              className={css(styles.closeButton)}
               onClick={handleButtonClick}>
                 <img src={closeIcon} alt="Close" style={iconStyle} />
             </button>
