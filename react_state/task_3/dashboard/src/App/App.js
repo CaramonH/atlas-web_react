@@ -7,7 +7,7 @@ import Login from '../Login/Login';
 import CourseList from "../CourseList/CourseList";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
-//import PropTypes from 'prop-types';//
+//import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import AppContext from './AppContext';
 
@@ -111,6 +111,13 @@ class App extends Component {
         isLoggedIn: false,
       }
     });
+  }
+
+  markNotificationAsRead = (id) => {
+    this.setState({
+      listNotifications: this.state.listNotifications.filter(notification => notification.id !== id)
+    });
+    console.log(`Notification ${id} has been marked read`);
   }
 
   componentDidMount() {
