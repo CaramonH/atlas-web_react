@@ -149,7 +149,8 @@ class App extends Component {
               listNotifications={listNotifications}
               displayDrawer={displayDrawer}
               handleDisplayDrawer={this.handleDisplayDrawer}
-              handleHideDrawer={this.handleHideDrawer} />
+              handleHideDrawer={this.handleHideDrawer}
+              markNotificationAsRead={this.markNotificationAsRead} />
             </div>
           </div>
           <div className={css(styles.body)}>

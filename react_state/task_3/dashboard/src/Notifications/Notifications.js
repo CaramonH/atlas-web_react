@@ -53,10 +53,9 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: '0.8rem',
     marginRight: '1rem',
-    // backgroundColor: '#fff8f8',
     cursor: 'pointer',
-    position: 'absolute', // Float over every element
-    right: '0', // Float to the right of the screen
+    position: 'absolute',
+    right: '0',
     ':hover': {
       animationName: [fadeIn, bounce],
       animationDuration: '1s, 0.5s',
@@ -78,27 +77,23 @@ const styles = StyleSheet.create({
       width: '100%',
     }
   },
+
+    closeButton: {
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    background: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    outline: 'none',
+    zIndex: 3,
+  },
 })
 
 class Notifications extends Component {
 
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.listNotifications.length > this.props.listNotifications.length ||
-      nextProps.displayDrawer !== this.props.displayDrawer;
-  }
-
   render() {
-    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
-    const buttonStyle = {
-      border: 'none',
-      background: 'transparent',
-      cursor: 'pointer',
-      padding: '0'
-    };
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer, markNotificationAsRead } = this.props;
     const iconStyle = {
       width: '.8rem',
       height: '.8rem',
@@ -130,7 +125,7 @@ class Notifications extends Component {
                       type={notification.type}
                       value={notification.value}
                       html={notification.html}
-                      markAsRead={() => this.markAsRead(notification.id)}
+                      markAsRead={() => markNotificationAsRead(notification.id)}
                     />
                   ))
                 )}
@@ -138,7 +133,7 @@ class Notifications extends Component {
             </div>
             <button
               aria-label="Close"
-              style={buttonStyle}
+              className={css(styles.closeButton)}
               onClick={handleHideDrawer}>
                 <img src={closeIcon} alt="Close" style={iconStyle} />
             </button>
@@ -161,6 +156,7 @@ Notifications.defaultProps = {
   listNotifications: [],
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
+  markNotificationAsRead: () => {},
 };
 
 export default Notifications;
