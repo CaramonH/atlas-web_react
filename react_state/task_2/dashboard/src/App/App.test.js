@@ -31,9 +31,10 @@ describe('App', () => {
     expect(wrapper.contains(<Header />)).toBe(true);
   });
 
-  it('contains the Login component', () => {
+  it('contains the Login component when not logged in', () => {
     const wrapper = shallow(<App />);
-    expect(wrapper.contains(<Login />)).toBe(true);
+    wrapper.setState({ user: { isLoggedIn: false } });
+    expect(wrapper.find(Login).length).toBe(1);
   });
 
   it('contains the Footer component', () => {
@@ -41,40 +42,22 @@ describe('App', () => {
     expect(wrapper.find(Footer).exists()).toBe(true);
   });
 
-  it('does not render CourseList when isLoggedIn is false', () => {
-    const wrapper = shallow(<App isLoggedIn={false} />);
+  it('does not render CourseList when user is not logged in', () => {
+    const wrapper = shallow(<App />);
+    wrapper.setState({ user: { isLoggedIn: false } });
     expect(wrapper.find(CourseList).length).toBe(0);
   });
 
-  describe('when isLoggedIn is true', () => {
-    let wrapper;
-    beforeEach(() => {
-      wrapper = shallow(<App isLoggedIn={true} />);
-    });
-
-    it('does not render Login component', () => {
-      expect(wrapper.find(Login).length).toBe(0);
-    });
-
-    it('renders CourseList component', () => {
-      expect(wrapper.find(CourseList).length).toBe(1);
-    });
+  it('renders CourseList component when user is logged in', () => {
+    const wrapper = shallow(<App />);
+    wrapper.setState({ user: { isLoggedIn: true } });
+    expect(wrapper.find(CourseList).length).toBe(1);
   });
 
-  it('calls logOut and alert when ctrl+h is pressed', () => {
-    const logOutMock = jest.fn();
-    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
-
-    const wrapper = mount(<App logOut={logOutMock} />);
-
-    const event = new KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
-    window.dispatchEvent(event);
-
-    expect(logOutMock).toHaveBeenCalled();
-    expect(alertMock).toHaveBeenCalledWith('Logging you out');
-
-    alertMock.mockRestore();
-    wrapper.unmount();
+  it('does not render Login component when user is logged in', () => {
+    const wrapper = shallow(<App />);
+    wrapper.setState({ user: { isLoggedIn: true } });
+    expect(wrapper.find(Login).length).toBe(0);
   });
 
   it('has displayDrawer state set to false by default', () => {
@@ -97,5 +80,22 @@ describe('App', () => {
 
     wrapper.instance().handleHideDrawer();
     expect(wrapper.state('displayDrawer')).toBe(false);
+  });
+
+  it('updates user state correctly when logIn is called', () => {
+    const wrapper = shallow(<App />);
+    wrapper.instance().logIn('test@example.com', 'password');
+    expect(wrapper.state('user').isLoggedIn).toBe(true);
+    expect(wrapper.state('user').email).toBe('test@example.com');
+  });
+
+  it('updates user state correctly when logOut is called', () => {
+    const wrapper = shallow(<App />);
+    wrapper.instance().logIn('test@example.com', 'password');
+    expect(wrapper.state('user').isLoggedIn).toBe(true);
+
+    wrapper.instance().logOut();
+    expect(wrapper.state('user').isLoggedIn).toBe(false);
+
   });
 });
