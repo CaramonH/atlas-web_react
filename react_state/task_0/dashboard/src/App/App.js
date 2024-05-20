@@ -11,12 +11,14 @@ import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
+
   body: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
   },
+
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -26,6 +28,7 @@ const styles = StyleSheet.create({
       flexDirection: 'column-reverse',
     },
   },
+
   headerNotifications: {
     display: 'flex',
     flexDirection: 'column',
@@ -35,12 +38,15 @@ const styles = StyleSheet.create({
       alignItems: 'flex-end',
     },
   },
+
   newsMarginLeft: {
     marginLeft: '4rem',
   },
+
   newsMargin: {
     marginLeft: '40px',
   },
+
   footer: {
     fontFamily: "'Galano Grotesque Alt', sans-serif",
     fontStyle: 'italic',
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '0',
   }
-});
+})
 
 class App extends Component {
   constructor(props) {
@@ -110,11 +116,10 @@ class App extends Component {
           <Header />
           <div className={css(styles.headerNotifications)}>
             <Notifications
-              listNotifications={listNotifications}
-              displayDrawer={displayDrawer}
-              handleDisplayDrawer={this.handleDisplayDrawer}
-              handleHideDrawer={this.handleHideDrawer}
-            />
+            listNotifications={listNotifications}
+            displayDrawer={displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer} />
           </div>
         </div>
         <div className={css(styles.body)}>

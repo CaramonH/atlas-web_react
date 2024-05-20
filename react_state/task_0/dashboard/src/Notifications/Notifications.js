@@ -19,22 +19,20 @@ const bounce = {
 const styles = StyleSheet.create({
 
   notifications: {
-    display: 'relative',
+    display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     border: '3px dotted #00003C',
     marginRight: '.5rem',
     marginTop: '1rem',
     '@media (max-width: 900px)': {
-      position: 'fixed',
       width: '100vw',
       height: '100vh',
-      backgroundColor: 'white',
       padding: 0,
       margin: 0,
       overflowY: 'auto',
       border: 'none',
-      zIndex: 2,
+      zIndex: 10,
     },
   },
 
@@ -57,8 +55,8 @@ const styles = StyleSheet.create({
     marginRight: '1rem',
     // backgroundColor: '#fff8f8',
     cursor: 'pointer',
-    position: 'absolute',
-    right: '0',
+    position: 'absolute', // Float over every element
+    right: '0', // Float to the right of the screen
     ':hover': {
       animationName: [fadeIn, bounce],
       animationDuration: '1s, 0.5s',
@@ -80,17 +78,6 @@ const styles = StyleSheet.create({
       width: '100%',
     }
   },
-
-  closeButton: {
-    position: 'absolute',
-    top: '1rem',
-    right: '1rem',
-    background: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    outline: 'none',
-    zIndex: 3,
-  },
 })
 
 class Notifications extends Component {
@@ -100,25 +87,29 @@ class Notifications extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.listNotifications.length > this.props.listNotifications.length;
+    return nextProps.listNotifications.length > this.props.listNotifications.length ||
+      nextProps.displayDrawer !== this.props.displayDrawer;
   }
 
   render() {
-    const { displayDrawer, listNotifications } = this.props;
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
+    const buttonStyle = {
+      border: 'none',
+      background: 'transparent',
+      cursor: 'pointer',
+      padding: '0'
+    };
     const iconStyle = {
       width: '.8rem',
       height: '.8rem',
       margin: '0.5rem'
-    };
-    const handleButtonClick = () => {
-      console.log("close button has been clicked");
     };
 
     const menuItemDisplay = displayDrawer ? css(styles.noMenuItem) : css(styles.menuItem);
 
     return (
       <>
-        <div className={menuItemDisplay} data-testid="menuItem">
+        <div className={menuItemDisplay} data-testid="menuItem" onClick={handleDisplayDrawer}>
           <p>Your Notifications</p>
         </div>
         {displayDrawer && (
@@ -147,8 +138,8 @@ class Notifications extends Component {
             </div>
             <button
               aria-label="Close"
-              className={css(styles.closeButton)}
-              onClick={handleButtonClick}>
+              style={buttonStyle}
+              onClick={handleHideDrawer}>
                 <img src={closeIcon} alt="Close" style={iconStyle} />
             </button>
           </div>
@@ -161,11 +152,15 @@ class Notifications extends Component {
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func,
 };
 
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: [],
+  handleDisplayDrawer: () => {},
+  handleHideDrawer: () => {},
 };
 
 export default Notifications;
