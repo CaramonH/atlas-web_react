@@ -60,7 +60,6 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
       email: '',
       password: '',
       enableSubmit: false,
@@ -69,7 +68,8 @@ class Login extends Component {
 
   handleLoginSubmit = (event) => {
     event.preventDefault();
-    this.setState({ isLoggedIn: true });
+    // Call the logIn function passed from the parent component
+    this.props.logIn(this.state.email, this.state.password);
     console.log('Log in button clicked my guy');
   }
 
