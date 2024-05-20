@@ -77,9 +77,6 @@ class App extends Component {
         { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
       ],
     };
-
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
 
   handleDisplayDrawer = () => {
@@ -135,7 +132,7 @@ class App extends Component {
           )}
           <div className={css(styles.newsMargin)}>
             <BodySection title='News from the School'>
-              <p className={css(styles.newsMarginLeft)}>Foster got hired!!</p>
+              <p className={css(styles.newsMarginLeft)}>Caramon is number one!!</p>
             </BodySection>
           </div>
         </div>
