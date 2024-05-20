@@ -84,4 +84,30 @@ describe('Notifications', () => {
     const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: longerListNotifications });
     expect(shouldUpdate).toBe(true);
   });
-})
+  
+  it('calls handleDisplayDrawer when menuItem is clicked', () => {
+    wrapper = shallow(
+      <Notifications
+        displayDrawer={false}
+        handleDisplayDrawer={handleDisplayDrawer}
+        handleHideDrawer={handleHideDrawer}
+        listNotifications={[]}
+      />
+    );
+    wrapper.find('[data-testid="menuItem"]').simulate('click');
+    expect(handleDisplayDrawer).toHaveBeenCalled();
+  });
+
+  it('calls handleHideDrawer when close button is clicked', () => {
+    wrapper = shallow(
+      <Notifications
+        displayDrawer={true}
+        handleDisplayDrawer={handleDisplayDrawer}
+        handleHideDrawer={handleHideDrawer}
+        listNotifications={[]}
+      />
+    );
+    wrapper.find('button').simulate('click');
+    expect(handleHideDrawer).toHaveBeenCalled();
+  });
+});
