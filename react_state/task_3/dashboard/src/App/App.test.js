@@ -96,6 +96,22 @@ describe('App', () => {
 
     wrapper.instance().logOut();
     expect(wrapper.state('user').isLoggedIn).toBe(false);
+  });
 
+  it('removes the notification from listNotifications when markNotificationAsRead is called', () => {
+    const wrapper = shallow(<App />);
+    const initialNotifications = [
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 2, type: 'urgent', value: 'New resume available' },
+      { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
+    ];
+    wrapper.setState({ listNotifications: initialNotifications });
+
+    wrapper.instance().markNotificationAsRead(2);
+    const expectedNotifications = [
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
+    ];
+    expect(wrapper.state('listNotifications')).toEqual(expectedNotifications);
   });
 });
