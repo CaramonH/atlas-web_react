@@ -16,9 +16,9 @@ describe('Login', () => {
     shallow(<Login />);
   });
 
-  it('renders 2 input tags', () => {
+  it('renders 3 input tags', () => {
     const wrapper = shallow(<Login />);
-    expect(wrapper.find('input').length).toEqual(2);
+    expect(wrapper.find('input').length).toEqual(3);
   });
 
   it('renders 2 label tags', () => {
