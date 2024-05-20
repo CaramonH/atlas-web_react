@@ -67,10 +67,10 @@ describe('Notifications', () => {
     consoleSpy.mockRestore();
   });
 
-  it('does not rerender with the same listNotifications prop', () => {
+  it('does not rerender with the same listNotifications and displayDrawer props', () => {
     const listNotifications = [{ id: 1, type: 'default', value: 'New course available' }];
-    const wrapper = shallow(<Notifications listNotifications={listNotifications} />);
-    const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications });
+    const wrapper = shallow(<Notifications listNotifications={listNotifications} displayDrawer={false} />);
+    const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications, displayDrawer: false });
     expect(shouldUpdate).toBe(false);
   });
 
@@ -84,9 +84,12 @@ describe('Notifications', () => {
     const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: longerListNotifications });
     expect(shouldUpdate).toBe(true);
   });
-  
+
   it('calls handleDisplayDrawer when menuItem is clicked', () => {
-    wrapper = shallow(
+    // Arrange
+    const handleDisplayDrawer = jest.fn();
+    const handleHideDrawer = jest.fn();
+    const wrapper = shallow(
       <Notifications
         displayDrawer={false}
         handleDisplayDrawer={handleDisplayDrawer}
@@ -94,12 +97,18 @@ describe('Notifications', () => {
         listNotifications={[]}
       />
     );
+    //Act
     wrapper.find('[data-testid="menuItem"]').simulate('click');
+
+    // Assert
     expect(handleDisplayDrawer).toHaveBeenCalled();
   });
 
   it('calls handleHideDrawer when close button is clicked', () => {
-    wrapper = shallow(
+    // Arrange
+    const handleDisplayDrawer = jest.fn();
+    const handleHideDrawer = jest.fn();
+    const wrapper = shallow(
       <Notifications
         displayDrawer={true}
         handleDisplayDrawer={handleDisplayDrawer}
@@ -107,7 +116,10 @@ describe('Notifications', () => {
         listNotifications={[]}
       />
     );
+    //Act
     wrapper.find('button').simulate('click');
+
+    // Assert
     expect(handleHideDrawer).toHaveBeenCalled();
   });
-});
+})
