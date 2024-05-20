@@ -65,6 +65,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      displayDrawer: false,
       listCourses: [
         { id: 1, name: 'ES6', credit: 60 },
         { id: 2, name: 'Webpack', credit: 20 },
@@ -76,6 +77,17 @@ class App extends Component {
         { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
       ],
     };
+
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
+  }
+
+  handleDisplayDrawer = () => {
+    this.setState({ displayDrawer: true });
+  }
+
+  handleHideDrawer = () => {
+    this.setState({ displayDrawer: false });
   }
 
   componentDidMount() {
@@ -96,14 +108,18 @@ class App extends Component {
 
   render () {
     const { isLoggedIn } = this.props;
-    const { listCourses, listNotifications } = this.state;
+    const { displayDrawer, listCourses, listNotifications } = this.state;
 
     return (
       <>
         <div className={css(styles.headerWrapper)}>
           <Header />
           <div className={css(styles.headerNotifications)}>
-            <Notifications listNotifications={listNotifications} />
+            <Notifications
+            listNotifications={listNotifications}
+            displayDrawer={displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer} />
           </div>
         </div>
         <div className={css(styles.body)}>
@@ -118,7 +134,7 @@ class App extends Component {
           )}
           <div className={css(styles.newsMargin)}>
             <BodySection title='News from the School'>
-              <p className={css(styles.newsMarginLeft)}>Caramon is number one!!</p>
+              <p className={css(styles.newsMarginLeft)}>Foster got hired!!</p>
             </BodySection>
           </div>
         </div>
