@@ -1,5 +1,5 @@
 import { getAllNotificationsByUser } from './notifications';
-import * as notificationsData from './notifications.json';
+import * as notificationsData from '../../notifications.json';
 
 // Sample data to be returned for the user id 5debd764a7c57c7839d722e9
 const expectedData = [
