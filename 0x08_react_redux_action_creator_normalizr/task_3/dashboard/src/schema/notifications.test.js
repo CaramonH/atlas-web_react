@@ -5,12 +5,14 @@ import * as notificationsData from '../../notifications.json';
 const expectedData = [
   {
     guid: "2d8e40be-1c78-4de0-afc9-fcc147afd4d2",
+    id: "5debd76480edafc8af244228", // Added the id property
     isRead: true,
     type: "urgent",
     value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
   },
   {
     guid: "280913fe-38dd-4abd-8ab6-acdb4105f922",
+    id: "5debd76444dd4dafea89d53b", // Added the id property
     isRead: false,
     type: "urgent",
     value: "Non diam phasellus vestibulum lorem sed risus ultricies. Tellus mauris a diam maecenas sed"
