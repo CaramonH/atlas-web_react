@@ -14,7 +14,11 @@ export function getAllNotificationsByUser(userId) {
   const normalizedData = normalize(notificationsData.default, [notification]);
   const userNotifications = Object.values(normalizedData.entities.notifications)
     .filter(notification => notification.author === userId)
-    .map(notification => notification.context);
+    .flatMap(notification => {
+      const messageId = notification.context;
+      const message = normalizedData.entities.messages[messageId];
+      return { ...message, id: notification.id };
+    });
 
-  return userNotifications.map(messageId => normalizedData.entities.messages[messageId]);
+  return userNotifications;
 }
