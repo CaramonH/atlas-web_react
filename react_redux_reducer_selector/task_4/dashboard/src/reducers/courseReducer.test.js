@@ -1,13 +1,16 @@
 import courseReducer from "./courseReducer";
 import { SELECT_COURSE, UNSELECT_COURSE, FETCH_COURSE_SUCCESS } from "../actions/courseActionTypes";
+import { courseNormalizer } from "../schema/courses";
 
 describe('courseReducer', () => {
-  it('should return inital state when no action is passed', () => {
+  it('should return initial state when no action is passed', () => {
     const state = courseReducer(undefined, {});
-    expect(state).toEqual([]);
+    expect(state).toEqual({
+      courses: {}
+    });
   });
 
-  it('should hand FETCH_COURSE_SUCCESS action', () => {
+  it('should handle FETCH_COURSE_SUCCESS action', () => {
     const courses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: "Webpack", credit: 20 },
@@ -18,38 +21,43 @@ describe('courseReducer', () => {
       data: courses
     };
     const state = courseReducer(undefined, action);
-    expect(state).toEqual(courses.map(course => ({ ...course, isSelected: false })));
+    const normalizedCourses = courseNormalizer(courses);
+    expect(state.courses).toEqual(normalizedCourses.entities.courses);
   });
 
   it('should handle SELECT_COURSE action', () => {
-    const initialState = [
-      { id: 1, name: "ES6", credit: 60, isSelected: false },
-      { id: 2, name: "Webpack", credit: 20, isSelected: false }
+    const courses = [
+      { id: 1, name: 'ES6', credit: 60 },
+      { id: 2, name: "Webpack", credit: 20 },
+      { id: 3, name: "React", credit: 40 }
     ];
+    const normalizedCourses = courseNormalizer(courses);
+    const initialState = {
+      courses: normalizedCourses.entities.courses
+    };
     const action = {
-      type: 'SELECT_COURSE',
-      index: 2
+      type: SELECT_COURSE,
+      index: '2'
     };
     const state = courseReducer(initialState, action);
-    expect(state).toEqual([
-      { id: 1, name: "ES6", credit: 60, isSelected: false },
-      { id: 2, name: "Webpack", credit: 20, isSelected: true }
-    ]);
+    expect(state.courses['2'].isSelected).toBe(true);
   });
 
   it('should handle UNSELECT_COURSE action', () => {
-    const initialState = [
-      { id: 1, name: "ES6", credit: 60, isSelected: false },
-      { id: 2, name: "Webpack", credit: 20, isSelected: false }
+    const courses = [
+      { id: 1, name: 'ES6', credit: 60 },
+      { id: 2, name: "Webpack", credit: 20, isSelected: true },
+      { id: 3, name: "React", credit: 40 }
     ];
+    const normalizedCourses = courseNormalizer(courses);
+    const initialState = {
+      courses: normalizedCourses.entities.courses
+    };
     const action = {
-      type: 'UNSELECT_COURSE',
-      index: 2
+      type: UNSELECT_COURSE,
+      index: '2'
     };
     const state = courseReducer(initialState, action);
-    expect(state).toEqual([
-      { id: 1, name: "ES6", credit: 60, isSelected: false },
-      { id: 2, name: "Webpack", credit: 20, isSelected: false }
-    ]);
+    expect(state.courses['2'].isSelected).toBe(false);
   });
 });

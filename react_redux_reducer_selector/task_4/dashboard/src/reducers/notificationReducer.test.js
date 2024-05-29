@@ -34,7 +34,7 @@ describe('notificationReducer', () => {
     });
     const action = {
       type: MARK_AS_READ,
-      index: '1'  // Use string '1' to match the key in the normalized state
+      index: '1'
     };
     const state = notificationReducer(initialState, action);
     expect(state.getIn(['notifications', '1', 'isRead'])).toBe(true);
