@@ -1,13 +1,14 @@
 import courseReducer from "./courseReducer";
 import { SELECT_COURSE, UNSELECT_COURSE, FETCH_COURSE_SUCCESS } from "../actions/courseActionTypes";
 import { courseNormalizer } from "../schema/courses";
+import Immutable from 'immutable';
 
 describe('courseReducer', () => {
   it('should return initial state when no action is passed', () => {
     const state = courseReducer(undefined, {});
-    expect(state).toEqual({
-      courses: {}
-    });
+    expect(state).toEqual(Immutable.Map({
+      courses: Immutable.Map({})
+    }));
   });
 
   it('should handle FETCH_COURSE_SUCCESS action', () => {
