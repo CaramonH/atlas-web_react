@@ -1,5 +1,4 @@
-import { MARK_AS_READ, SET_TYPE_FILTER } from './notificationActionTypes';
-import { useDispatch } from 'react-redux';
+import { MARK_AS_READ, SET_TYPE_FILTER, FETCH_NOTIFICATIONS_SUCCESS } from "./notificationActionTypes";
 
 // Action creator for marking notification as read
 export const markAsRead = (index) => ({
@@ -11,6 +10,11 @@ export const markAsRead = (index) => ({
 export const setNotificationFilter = (filter) => ({
   type: SET_TYPE_FILTER,
   filter,
+});
+
+export const fetchNotificationsSuccess = (data) => ({
+    type: FETCH_NOTIFICATIONS_SUCCESS,
+    data
 });
 
 // Higher-order function to bind action creators
