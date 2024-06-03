@@ -1,45 +1,24 @@
-import * as notifData from '../../dist/notifications.json';
-import { schema, normalize } from 'normalizr';
+import { normalize, schema } from 'normalizr';
+import * as notificationsData from '../../notifications.json';
 
-// Define schemas for user, message, and notification
-const user = new schema.Entity("users");
-const message = new schema.Entity("messages", {}, {
-  idAttribute: 'guid'
-});
-const notification = new schema.Entity("notifications", {
+// Define entities
+const user = new schema.Entity('users');
+const message = new schema.Entity('messages', {}, { idAttribute: 'guid' });
+const notification = new schema.Entity('notifications', {
   author: user,
-  context: message,
+  context: message
 });
 
-// Function to normalize notifications data
-export function notificationsNormalizer(data) {
-  return normalize(data, [notification]);
-}
+// Function to get all notifications by user ID
+export function getAllNotificationsByUser(userId) {
+  const normalizedData = normalize(notificationsData.default, [notification]);
+  const userNotifications = Object.values(normalizedData.entities.notifications)
+    .filter(notification => notification.author === userId)
+    .flatMap(notification => {
+      const messageId = notification.context;
+      const message = normalizedData.entities.messages[messageId];
+      return { ...message, id: notification.id };
+    });
 
-// Normalize the default data
-const normalizedData = notificationsNormalizer(notifData.default);
-
-// Get notifications by user id
-const getAllNotificationsByUser = (userId) => {
-  const userNotifications = [];
-
-  // Iterate through all notification IDs
-  for (const id of normalizedData.result) {
-    // Get the notification by ID
-    const notif = normalizedData.entities.notifications[id];
-
-    // Check if the author's id matches the userId
-    if (notif.author.id === userId) { // Assuming author is an object with an id field
-      const message = normalizedData.entities.messages[notif.context];
-      userNotifications.push({
-        guid: message.guid,
-        isRead: message.isRead,
-        type: message.type,
-        value: message.value
-      });
-    }
-  }
   return userNotifications;
-};
-
-export { user, message, notification, getAllNotificationsByUser, normalizedData };
+}

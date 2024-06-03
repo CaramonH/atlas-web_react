@@ -1,47 +1,55 @@
-import courseReducer from './courseReducer';
-import { FETCH_COURSE_SUCCESS, SELECT_COURSE, UNSELECT_COURSE } from '../actions/courseActionTypes';
-import { fromJS } from 'immutable';
+import courseReducer from "./courseReducer";
+import { SELECT_COURSE, UNSELECT_COURSE, FETCH_COURSE_SUCCESS } from "../actions/courseActionTypes";
 
 describe('courseReducer', () => {
-  it('should handle FETCH_COURSE_SUCCESS action', () => {
+  it('should return inital state when no action is passed', () => {
+    const state = courseReducer(undefined, {});
+    expect(state).toEqual([]);
+  });
+
+  it('should hand FETCH_COURSE_SUCCESS action', () => {
     const courses = [
       { id: 1, name: 'ES6', credit: 60 },
-      { id: 2, name: 'Webpack', credit: 20 },
-      { id: 3, name: 'React', credit: 40 }
+      { id: 2, name: "Webpack", credit: 20 },
+      { id: 3, name: "React", credit: 40 }
     ];
-    const action = { type: FETCH_COURSE_SUCCESS, data: courses };
+    const action = {
+      type: 'FETCH_COURSE_SUCCESS',
+      data: courses
+    };
     const state = courseReducer(undefined, action);
-    const expectedState = fromJS({
-      courses: {
-        1: { id: 1, name: 'ES6', credit: 60, isSelected: false },
-        2: { id: 2, name: 'Webpack', credit: 20, isSelected: false },
-        3: { id: 3, name: 'React', credit: 40, isSelected: false }
-      }
-    });
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(courses.map(course => ({ ...course, isSelected: false })));
   });
 
   it('should handle SELECT_COURSE action', () => {
-    const initialState = fromJS({
-      courses: {
-        1: { id: 1, name: 'ES6', credit: 60, isSelected: false },
-        2: { id: 2, name: 'Webpack', credit: 20, isSelected: false }
-      }
-    });
-    const action = { type: SELECT_COURSE, index: 1 };
+    const initialState = [
+      { id: 1, name: "ES6", credit: 60, isSelected: false },
+      { id: 2, name: "Webpack", credit: 20, isSelected: false }
+    ];
+    const action = {
+      type: 'SELECT_COURSE',
+      index: 2
+    };
     const state = courseReducer(initialState, action);
-    expect(state.getIn(['courses', '1', 'isSelected'])).toBe(true);
+    expect(state).toEqual([
+      { id: 1, name: "ES6", credit: 60, isSelected: false },
+      { id: 2, name: "Webpack", credit: 20, isSelected: true }
+    ]);
   });
 
   it('should handle UNSELECT_COURSE action', () => {
-    const initialState = fromJS({
-      courses: {
-        1: { id: 1, name: 'ES6', credit: 60, isSelected: true },
-        2: { id: 2, name: 'Webpack', credit: 20, isSelected: false }
-      }
-    });
-    const action = { type: UNSELECT_COURSE, index: 1 };
+    const initialState = [
+      { id: 1, name: "ES6", credit: 60, isSelected: false },
+      { id: 2, name: "Webpack", credit: 20, isSelected: false }
+    ];
+    const action = {
+      type: 'UNSELECT_COURSE',
+      index: 2
+    };
     const state = courseReducer(initialState, action);
-    expect(state.getIn(['courses', '1', 'isSelected'])).toBe(false);
+    expect(state).toEqual([
+      { id: 1, name: "ES6", credit: 60, isSelected: false },
+      { id: 2, name: "Webpack", credit: 20, isSelected: false }
+    ]);
   });
 });

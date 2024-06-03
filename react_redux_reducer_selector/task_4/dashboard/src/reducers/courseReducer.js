@@ -1,30 +1,31 @@
-import { Map, fromJS } from 'immutable';
 import { SELECT_COURSE, UNSELECT_COURSE, FETCH_COURSE_SUCCESS } from "../actions/courseActionTypes";
-import { coursesNormalizer } from '../schema/courses';
 
-const initialState = Map({
-  courses: Map(),
-});
+// Initial state is an empty array
+const initialState = [];
 
-const courseReducer = (state = initialState, action) => {
-  switch (action.type) {
+// Reducer function to handle course-related actions
+function courseReducer(state = initialState, action) {
+  switch(action.type) {
+    // Handle the FETCH_COURSE_SUCCESS action to populate the state with courses and set isSelected to false
     case FETCH_COURSE_SUCCESS:
-      // Normalize the data and ensure it is converted to an immutable Map
-      const normalizedData = coursesNormalizer(action.data);
-      const coursesWithSelection = fromJS(normalizedData.entities.courses).map(course => course.set('isSelected', false));
-      return state.mergeIn(['courses'], coursesWithSelection);
-
+      return action.data.map(course => ({ ...course, isSelected: false }));
+    
+    // Handle the SELECT_COURSE action to mark a specific course as selected based on its id
     case SELECT_COURSE:
-      // Ensure action.index is treated as a string for consistency
-      return state.setIn(['courses', String(action.index), 'isSelected'], true);
+      return state.map(course =>
+        course.id === action.index ? { ...course, isSelected: true } : course
+      );
 
+    // Handle the UNSELECT_COURSE action to mark a specific course as unselected based on its id
     case UNSELECT_COURSE:
-      // Ensure action.index is treated as a string for consistency
-      return state.setIn(['courses', String(action.index), 'isSelected'], false);
-
+      return state.map(course =>
+        course.id === action.index ? { ...course, isSelected: false } : course
+      );
+    
+    // Return the current state for any other action types
     default:
       return state;
   }
-};
+}
 
 export default courseReducer;
