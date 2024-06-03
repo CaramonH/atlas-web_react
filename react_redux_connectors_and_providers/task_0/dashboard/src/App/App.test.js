@@ -1,24 +1,35 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import App from './App';
+import { App, mapStateToProps } from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import CourseList from '../CourseList/CourseList';
 import { StyleSheetTestUtils } from 'aphrodite';
+import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('App', () => {
-  beforeAll(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
-  });
-
-  afterAll(() => {
-    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-  });
-
   it('renders without crashing', () => {
-    shallow(<App />);
+    mount(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
   });
 
   it('contains the Notifications component', () => {
@@ -60,28 +71,6 @@ describe('App', () => {
     expect(wrapper.find(Login).length).toBe(0);
   });
 
-  it('has displayDrawer state set to false by default', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.state('displayDrawer')).toBe(false);
-  });
-
-  it('sets displayDrawer to true when calling handleDisplayDrawer', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.state('displayDrawer')).toBe(false);
-
-    wrapper.instance().handleDisplayDrawer();
-    expect(wrapper.state('displayDrawer')).toBe(true);
-  });
-
-  it('sets displayDrawer to false when calling handleHideDrawer', () => {
-    const wrapper = shallow(<App />);
-    wrapper.instance().handleDisplayDrawer();
-    expect(wrapper.state('displayDrawer')).toBe(true);
-
-    wrapper.instance().handleHideDrawer();
-    expect(wrapper.state('displayDrawer')).toBe(false);
-  });
-
   it('updates user state correctly when logIn is called', () => {
     const wrapper = shallow(<App />);
     wrapper.instance().logIn('test@example.com', 'password');
@@ -113,5 +102,27 @@ describe('App', () => {
       { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
     ];
     expect(wrapper.state('listNotifications')).toEqual(expectedNotifications);
+  });
+});
+
+describe('mapStateToProps', () => {
+  it('should return the right object when passing the state', () => {
+    // create a simulated state using Immutable.js
+    const state = fromJS({
+      uiReducer: {
+        isUserLoggedIn: true
+      }
+    });
+
+    // Call mapStateToProps with the simulated state
+    const componentState = mapStateToProps(state.toJS());
+
+    // Define what you expect to receive
+    const expectedState = {
+      isLoggedIn: true
+    };
+
+    // Assert that mapStateToProps returns expected state
+    expect(componentState).toEqual(expectedState);
   });
 });
