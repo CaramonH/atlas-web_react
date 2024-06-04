@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import App from './App';
+import { Map } from 'immutable';
+import App, { mapStateToProps } from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -114,4 +115,12 @@ describe('App', () => {
     ];
     expect(wrapper.state('listNotifications')).toEqual(expectedNotifications);
   });
+
+  describe('mapStateToProps', () => {
+  it('returns the correct object when passing a state with isUserLoggedIn set to true', () => {
+    const state = Map({ isUserLoggedIn: true });
+    const expectedProps = { isLoggedIn: true };
+    expect(mapStateToProps(state)).toEqual(expectedProps);
+  });
+});
 });
