@@ -35,7 +35,6 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.5",
     "aphrodite": "^2.4.0",
     "enzyme": "^3.11.0",
     "immutable": "^4.3.6",
