@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import './Global.css';
 import Notifications from "../Notifications/Notifications";
 import Header from '../Header/Header';
@@ -177,4 +178,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.uiReducer.isLoggedIn
+  };
+};
+
+export default connect(mapStateToProps)(App);
