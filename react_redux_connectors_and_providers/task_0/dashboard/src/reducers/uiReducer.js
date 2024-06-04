@@ -1,4 +1,5 @@
 import { Map } from 'immutable';
+import { LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN_SUCCESS, LOGIN_FAILURE } from "../actions/uiActionTypes";
 
 const initialState = Map({
   isNotificationDrawerVisible: false,
