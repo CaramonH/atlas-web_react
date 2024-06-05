@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import logo from '../assets/atlas_logo.png';
 import { StyleSheet, css } from 'aphrodite';
-import UserContext from '../App/AppContext';
+import { logout } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
   logo: {
@@ -52,9 +53,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Header = () => {
-  const { user, logOut } = useContext(UserContext);
-
+const Header = ({ user, logout }) => {
   return (
     <header className={css(styles.headerMain)}>
       <img src={logo} className={css(styles.logo)} alt="logo" />
@@ -64,7 +63,7 @@ const Header = () => {
       {user.isLoggedIn && (
         <div id="logoutSection" className={css(styles.logoutSection)}>
           <p>
-            Welcome {user.email} <button className={css(styles.logoutButton)} onClick={logOut}>logout</button>
+            Welcome {user.email} <button className={css(styles.logoutButton)} onClick={logout}>logout</button>
           </p>
         </div>
       )}
@@ -72,4 +71,10 @@ const Header = () => {
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    user: state.uiReducer.user,
+  };
+};
+
+export default connect(mapStateToProps, { logout })(Header);
