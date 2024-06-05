@@ -60,7 +60,7 @@ const Header = ({ user, logout }) => {
       <h1 className={css(styles.headerTitle)}>
         School dashboard
       </h1>
-      {user.isLoggedIn && (
+      {user && user.isLoggedIn && (
         <div id="logoutSection" className={css(styles.logoutSection)}>
           <p>
             Welcome {user.email} <button className={css(styles.logoutButton)} onClick={logout}>logout</button>
@@ -73,7 +73,7 @@ const Header = ({ user, logout }) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.uiReducer.user,
+    user: state.ui.get('user')
   };
 };
 

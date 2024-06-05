@@ -4,12 +4,12 @@ import App from './App/App';
 import { configureStore } from '@reduxjs/toolkit';
 import uiReducer from './reducers/uiReducer';
 import { Provider } from 'react-redux';
+import rootReducer from './reducers/rootReducer';
 
 // Create Redux store holding state of your app
 const store = configureStore({
-  reducer: {
-    ui: uiReducer,
-  },
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
