@@ -1,17 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { configureStore, applyMiddleware } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
+import ReactDOM from 'react-dom/client';
 import App from './App/App';
+import { configureStore } from '@reduxjs/toolkit';
 import uiReducer from './reducers/uiReducer';
+import { Provider } from 'react-redux';
 
-// Create the Redux store using configureStore
+// Create Redux store holding state of your app
 const store = configureStore({
   reducer: {
-    uiReducer: uiReducer
+    ui: uiReducer,
   },
-  middleware: [thunk]
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 // Root for the main app
@@ -23,3 +25,5 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+export default store;
