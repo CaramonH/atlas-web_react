@@ -1,3 +1,4 @@
+// App.js
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import './Global.css';
@@ -8,17 +9,15 @@ import Login from '../Login/Login';
 import CourseList from "../CourseList/CourseList";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
-//import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import AppContext from './AppContext';
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
-
   body: {
     display: 'flex',
     flexDirection: 'column',
   },
-
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -26,10 +25,8 @@ const styles = StyleSheet.create({
     borderBottom: '5px solid #00003C',
     '@media (max-width: 900px)': {
       flexDirection: 'column-reverse',
-      // alignItems: 'center',
     },
   },
-
   headerNotifications: {
     display: 'flex',
     flexDirection: 'column',
@@ -39,15 +36,12 @@ const styles = StyleSheet.create({
       alignItems: 'flex-end',
     },
   },
-
   newsMarginLeft: {
     marginLeft: '4rem',
   },
-
   newsMargin: {
     marginLeft: '40px',
   },
-
   footer: {
     fontFamily: "'Galano Grotesque Alt', sans-serif",
     fontStyle: 'italic',
@@ -60,13 +54,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '0',
   }
-})
+});
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayDrawer: false,
       user: {
         email: '',
         password: '',
@@ -83,14 +76,6 @@ class App extends Component {
         { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
       ],
     };
-  }
-
-  handleDisplayDrawer = () => {
-    this.setState({ displayDrawer: true });
-  }
-
-  handleHideDrawer = () => {
-    this.setState({ displayDrawer: false });
   }
 
   logIn = (email, password) => {
@@ -122,7 +107,7 @@ class App extends Component {
 
   componentDidMount() {
     this.handleKeyDown = (event) => {
-      if(event.ctrlKey && event.key === 'h') {
+      if (event.ctrlKey && event.key === 'h') {
         event.preventDefault();
         alert('Logging you out');
         this.logOut();
@@ -136,8 +121,9 @@ class App extends Component {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  render () {
-    const { listCourses, listNotifications, displayDrawer, user } = this.state;
+  render() {
+    const { listCourses, listNotifications, user } = this.state;
+    const { displayNotificationDrawer, hideNotificationDrawer, displayDrawer } = this.props;
 
     return (
       <AppContext.Provider value={{ user, logOut: this.logOut }}>
@@ -146,11 +132,12 @@ class App extends Component {
             <Header />
             <div className={css(styles.headerNotifications)}>
               <Notifications
-              listNotifications={listNotifications}
-              displayDrawer={displayDrawer}
-              handleDisplayDrawer={this.handleDisplayDrawer}
-              handleHideDrawer={this.handleHideDrawer}
-              markNotificationAsRead={this.markNotificationAsRead} />
+                listNotifications={listNotifications}
+                displayDrawer={displayDrawer}
+                handleDisplayDrawer={displayNotificationDrawer}
+                handleHideDrawer={hideNotificationDrawer}
+                markNotificationAsRead={this.markNotificationAsRead}
+              />
             </div>
           </div>
           <div className={css(styles.body)}>
@@ -180,8 +167,13 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.uiReducer.isLoggedIn
+    displayDrawer: state.uiReducer.displayDrawer,
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
