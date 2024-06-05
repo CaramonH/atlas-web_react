@@ -1,6 +1,6 @@
-// App.js
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 import './Global.css';
 import Notifications from "../Notifications/Notifications";
 import Header from '../Header/Header';
@@ -164,6 +164,16 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  displayDrawer: PropTypes.bool,
+  displayNotificationDrawer: PropTypes.func.isRequired,
+  hideNotificationDrawer: PropTypes.func.isRequired,
+};
+
+App.defaultProps = {
+  displayDrawer: false,
+};
 
 const mapStateToProps = (state) => {
   return {
