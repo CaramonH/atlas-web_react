@@ -10,11 +10,9 @@ import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBot
 import BodySection from "../BodySection/BodySection";
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { Map, List } from 'immutable';
 import { loginRequest, logout, displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
-
   body: {
     display: 'flex',
     flexDirection: 'column',
@@ -27,7 +25,6 @@ const styles = StyleSheet.create({
     borderBottom: '5px solid #00003C',
     '@media (max-width: 900px)': {
       flexDirection: 'column-reverse',
-      // alignItems: 'center',
     },
   },
 
@@ -61,28 +58,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '0',
   }
-})
-
-const listCourses = [
-  { id: 1, name: 'ES6', credit: 60 },
-  { id: 2, name: 'Webpack', credit: 20 },
-  { id: 3, name: 'React', credit: 40 },
-];
-
-const listNotifications = [
-  { id: 1, type: 'default', value: 'New course available' },
-  { id: 2, type: 'urgent', value: 'New resume available' },
-  { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
-];
+});
 
 class App extends Component {
-
   componentDidMount() {
     this.handleKeyDown = (event) => {
       if(event.ctrlKey && event.key === 'h') {
         event.preventDefault();
         alert('Logging you out');
-        this.props.logOut();
+        this.props.logout();
       }
     };
 
@@ -102,22 +86,20 @@ class App extends Component {
           <Header />
           <div className={css(styles.headerNotifications)}>
             <Notifications
-              listNotifications={listNotifications}
               displayDrawer={displayDrawer}
               handleDisplayDrawer={displayNotificationDrawer}
               handleHideDrawer={hideNotificationDrawer}
-              markNotificationAsRead={this.markNotificationAsRead}
             />
           </div>
         </div>
         <div className={css(styles.body)}>
           {isLoggedIn ? (
             <BodySectionWithMarginBottom title='Course List'>
-              <CourseList listCourses={listCourses} />
+              <CourseList />
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title='Log in to continue'>
-              <Login login={this.props.login} />
+              <Login />
             </BodySectionWithMarginBottom>
           )}
           <div className={css(styles.newsMargin)}>
@@ -161,11 +143,9 @@ export function mapDispatchToProps(dispatch) {
   return {
     displayNotificationDrawer: () => dispatch(displayNotificationDrawer()),
     hideNotificationDrawer: () => dispatch(hideNotificationDrawer()),
-    login: (email, password) => dispatch(loginRequest(email, password)), // Change logIn to login
+    login: (email, password) => dispatch(loginRequest(email, password)),
     logout: () => dispatch(logout()),
   };
 };
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
