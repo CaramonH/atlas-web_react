@@ -6,18 +6,14 @@ import { Provider } from 'react-redux';
 import rootReducer from './reducers/rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-// Create Redux store holding state of your app
-const store = configureStore({
-  reducer: rootReducer,
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
-  enhancers: [composeWithDevTools()], // Add composeWithDevTools to enable Redux DevTools extension
-});
+const composeEnhancers = composeWithDevTools({
+}) || window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
-// Root for the main app
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -26,5 +22,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-export default store;
