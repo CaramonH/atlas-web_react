@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, applyMiddleware } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import App from './App/App';
 import uiReducer from './reducers/uiReducer';
 
 // Create the Redux store using configureStore
 const store = configureStore({
   reducer: {
-    uiReducer: uiReducer // Pass your uiReducer
+    uiReducer: uiReducer
   },
+  middleware: [thunk]
 });
 
 // Root for the main app
